@@ -1,0 +1,10 @@
+.input-container {
+    margin-top: 0.5%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.search-icon {
+    margin-right: 10px; /* Tạo khoảng cách giữa biểu tượng và input */
+}

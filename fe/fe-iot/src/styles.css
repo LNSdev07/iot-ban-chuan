@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+.ant-layout.ant-layout-has-sider>.ant-layout,
+.ant-layout.ant-layout-has-sider>.ant-layout-content {
+    min-width: calc(100vw - 256px);
+    max-width: calc(100vw - 80px);
+    overflow: hidden;
+}
+
+.ant-layout-content {
+    padding: 8px;
+}
+
+.inner-content {
+    padding: 8px !important;
+    overflow: auto;
+}

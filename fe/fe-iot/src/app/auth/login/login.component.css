@@ -1,0 +1,57 @@
+/* Thêm CSS vào file styles.css hoặc styles.scss */
+
+.login-container {
+    display: flex;
+    flex-direction: column; /* Giữa theo chiều dọc */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .login-form {
+    width: 500px;
+    padding: 16px;
+    height: 300px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .login-form-margin {
+    margin-bottom: 10px;
+  }
+  
+  .login-form-button {
+    width: 100%;
+  }
+  
+  .login-form-forgot {
+    float: right;
+  }
+  
+  .login-form a {
+    margin-left: 8px;
+  }
+  
+  /* Tùy chỉnh màu sắc và font chữ cho form control */
+  nz-form-control {
+    width: 100%;
+  }
+  
+  nz-input-group {
+    width: 100%;
+  }
+  
+  /* Tùy chỉnh màu sắc cho checkbox */
+  label[nz-checkbox] {
+    color: #1890ff;
+  }
+  
+  /* Thêm hiệu ứng hover cho link */
+  .login-form a:hover {
+    color: #1890ff;
+  }
+  

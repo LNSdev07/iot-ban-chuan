@@ -1,0 +1,62 @@
+<!-- <p>action works!</p> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="overflow-y: scroll;">
+    <nz-page-header nzTitle="Thiết Lập Cảnh Báo"></nz-page-header>
+    <nz-table #basicTable  [nzFrontPagination] ="false" [nzData] = "listOfData" style="margin-top: 5px;">
+        <thead>
+          <tr>
+            <th [nzAlign] = "'center'">STT</th>
+            <th [nzAlign] = "'center'">Tên Cảm Biến</th>
+            <th [nzAlign] = "'center'">Giá trị nhỏ nhất cho phép</th>
+            <th [nzAlign] = "'center'">Giá trị lớn nhất cho phép</th>
+            <th [nzAlign] = "'center'">Thời gian câp nhật</th>
+            <th [nzAlign] = "'center'">Hành Động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of listOfData; let i = index">
+            <td [nzAlign] = "'center'">{{ i+1 }}</td>
+            <td [nzAlign] = "'center'"><strong>{{ data.deviceType }}</strong></td>
+            <td [nzAlign] = "'center'"><strong>{{ data.min }}</strong></td>
+            <td [nzAlign] = "'center'"><strong>{{ data.max }}</strong></td>
+            <td [nzAlign] = "'center'"><strong>{{ data.updatedTime | date: 'yyyy-MM-dd HH:mm:ss' }}</strong></td>
+            <td [nzAlign] = "'center'">
+              <button nz-button [nzType]="'primary'" (click)="showModal(data.deviceType, data.min,data.max)"><span>Thiết Lập</span></button>
+                <!-- <button nz-button nzType="primary" [nzLoading]="true" [nzDanger]="true" style="margin-left: 7px;">Click me!</button> -->
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+      <nz-switch  [(ngModel)]="switchValue" (ngModelChange) ="changeAuto()" nzCheckedChildren="Tắt chế độ tự động" nzUnCheckedChildren="Bật chế độ tự động"></nz-switch>
+      <div class="card-container">
+        <nz-card class="custom-card" nzTitle="Còi Cảnh Báo" [nzHoverable]="true" style="width: 270px; height: 170px; margin-left: 25%;">
+          <button [disabled]="disableButtonAction"  *ngIf="buzzerStatus === 1" nz-button nzType="primary" (click)="changeStatus('BUZZER', 1)" style="width: 100px;">Bật</button>
+          <button [disabled]="disableButtonAction"  *ngIf="buzzerStatus === 0" nz-button nzType="primary" (click)="changeStatus('BUZZER', 0)" nzDanger>Tắt</button>
+        </nz-card>
+        
+        <nz-card  class="custom-card" nzTitle="Đèn lead" [nzHoverable]="true" style="width: 270px; height: 170px; margin-right: 25%;">
+          <button [disabled]="disableButtonAction" *ngIf="ledStatus === 1" nz-button nzType="primary" (click)="changeStatus('LED', 1)"  style="width: 100px;">Bật</button>
+          <button [disabled]="disableButtonAction" *ngIf="ledStatus === 0" nz-button nzType="primary" (click)="changeStatus('LED', 0)" nzDanger>Tắt</button>
+        </nz-card>
+       </div>
+
+       <nz-modal [(nzVisible)]="isVisible" nzTitle= {{modalName}} (nzOnCancel)="closeModal()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <div>
+            <span>Giá trị nhỏ nhất</span>
+            <nz-input-number inputmode="numeric" pattern="[0-9]*" [(ngModel)]="min" [nzMin]="1" [nzMax]="100" [nzStep]="1" style="width: 400px;"></nz-input-number>
+          </div>
+          <div>
+            <span>Giá trị lớn nhất</span>
+            <nz-input-number inputmode="numeric" [(ngModel)]="max" [nzMin]="2" [nzMax]="2000" [nzStep]="1" style="width: 400px;"></nz-input-number>
+          </div>
+        </ng-container>
+      </nz-modal>
+</body>
+</html>

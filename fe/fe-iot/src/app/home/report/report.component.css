@@ -1,0 +1,31 @@
+.card-container {
+  display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 100px; /* Điều chỉnh khoảng cách giữa các card nếu cần */
+}
+
+/* .card {
+  flex: 1;
+  width: 270px;
+  height: 170px;
+  margin-right: 100px;
+} */
+
+
+
+.container {
+    display: flex; /* Sử dụng flexbox layout */
+    flex-direction: row; /* Sắp xếp theo chiều ngang (ngang nhau) */
+    justify-content: space-between; /* Các phần tử cách nhau bằng khoảng cách đều */
+    align-items: flex-start; /* Căn theo phía trên (top) */
+  }
+  
+  .chart-container {
+    flex: 1; /* Để biểu đồ mở rộng để lấp đầy phần còn lại của hàng */
+    margin-right: 10px; /* Khoảng cách giữa biểu đồ và thẻ */
+  }
+
+  .custom-tag {
+    font-size: 16px; /* Điều chỉnh kích thước phông chữ theo nhu cầu */
+    padding: 10px 20px; /* Điều chỉnh kích thước gian đoạn theo nhu cầu */
+  }

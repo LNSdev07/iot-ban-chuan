@@ -1,0 +1,77 @@
+<!-- <p>data works!</p> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+    <nz-page-header nzTitle="Dữ liệu cảnh báo"></nz-page-header>
+    <div class="input-container">
+        <span nz-icon nzType="search" nzTheme="outline" class="search-icon"></span>
+        <input class="passenger-input" [nzBorderless]="false" style="width: 400px;" nz-input placeholder="Search" />
+        <nz-range-picker style="margin-left: 20px;" [(ngModel)]="dateRange" (ngModelChange)="handleDateRangeChange($event)"></nz-range-picker>
+        <nz-select style="width: 200px; margin-left: 2.5%;" [nzPlaceHolder]= "ttc" [(ngModel)]="selectedStatusBc" [nzAllowClear]="true" (ngModelChange)="changeStatus($event, 1)">
+          <nz-option nzValue="0" nzLabel="Tắt còi báo"></nz-option>
+          <nz-option nzValue="1" nzLabel="Bật còi báo"></nz-option>
+        </nz-select>
+        <nz-select  style="width: 200px; margin-left: 4%;" [nzPlaceHolder]= "ttmb" [(ngModel)]="selectedStatusMb" [nzAllowClear]="true" (ngModelChange)="changeStatus($event, 0)">
+          <nz-option nzValue="1" nzLabel="Bật đèn led"></nz-option>
+          <nz-option nzValue="0" nzLabel="Tắt đèn led"></nz-option>
+        </nz-select>
+    </div>
+    <nz-table #basicTable 
+     [nzData] = "dataTable"
+      [nzBordered] = "true"
+      nzShowSizeChanger
+      [nzFrontPagination]= false
+      [nzLoading]= loading
+      [nzPageSizeOptions] = "[10, 20, 30, 40]"
+      [nzOuterBordered] =true
+      [nzTotal] = totalElement
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      [nzFrontPagination] = false
+      [nzVirtualItemSize] =10
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+      >
+      <thead >
+        <tr>
+          <th [nzAlign] = "'center'">STT</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="temperature" (nzSortOrderChange)="sort('temperature', $event)">Nhiệt Độ</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="humidity" (nzSortOrderChange)="sort('humidity', $event)">Độ Ẩm</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="gasSensor" (nzSortOrderChange)="sort('gasSensor', $event)">Khí Gas</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="flameSensor" (nzSortOrderChange)="sort('flameSensor', $event)">Cảnh báo lửa</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="buzzerState" (nzSortOrderChange)="sort('buzzerState', $event)">Trạng thái còi</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="ledState" (nzSortOrderChange)="sort('ledState', $event)">Trạng thái led</th>
+          <th [nzAlign] = "'center'" nzShowSort nzSortKey="time" (nzSortOrderChange)="sort('time', $event)">Thời gian dữ liệu cập nhật</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dataTable; let i = index">
+          <td [nzAlign] = "'center'">{{ i+1 }}</td>
+          <td [nzAlign] = "'center'">{{ data.temperature }}</td>
+          <td [nzAlign] = "'center'">{{ data.humidity }}</td>
+          <td [nzAlign] = "'center'">{{ data.gasSensor }}</td>
+          <td [nzAlign] = "'center'">
+            <nz-tag *ngIf="data.flameSensor === 1" [nzColor]= "'#87d068'">Đã phát hiện lửa</nz-tag>
+            <nz-tag *ngIf="data.flameSensor === 0" [nzColor]="'#f50'">Không có lửa</nz-tag>
+          </td> 
+          <td [nzAlign] = "'center'">
+            <nz-tag *ngIf="data.buzzerState === 1" [nzColor]= "'#87d068'">Bật thiết bị</nz-tag>
+            <nz-tag *ngIf="data.buzzerState === 0" [nzColor]="'#f50'">Tắt thiết bị</nz-tag>
+          </td> 
+          <td [nzAlign] = "'center'">
+            <nz-tag *ngIf="data.ledState === 1" [nzColor]= "'#87d068'">Bật thiết bị</nz-tag>
+            <nz-tag *ngIf="data.ledState === 0" [nzColor]="'#f50'">Tắt thiết bị</nz-tag>
+          </td>
+          <td [nzAlign] = "'center'">{{ data.time }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <!-- <h1>Lại ngoc son</h1> -->
+    
+</body>
+</html>

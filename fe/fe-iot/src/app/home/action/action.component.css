@@ -1,0 +1,20 @@
+.card-container {
+    margin-top: 7%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-container nz-card {
+    margin: 0; /* Đặt khoảng cách là 0 */
+}
+
+.custom-card .ant-card-head {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-card .ant-card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

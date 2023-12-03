@@ -1,0 +1,28 @@
+server:
+    servlet:
+        context-path: /api/iot/v1
+
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/iot
+        driver-class-name: org.postgresql.Driver
+        username: postgres
+        password: 10012001
+    jpa:
+        show-sql: true
+    security:
+        user:
+            name: 1
+            password: 1
+
+
+jwt:
+    secret: owif494jir02ke
+    expiry-min: 43200
+
+logging:
+    level:
+        org:
+            springframework:
+                security=DEBUG:
+
