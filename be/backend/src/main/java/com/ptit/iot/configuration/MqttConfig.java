@@ -96,7 +96,7 @@ public class MqttConfig
                     Data data = gson.fromJson(message.getPayload().toString(), Data.class);
                     data.setTime(new Date());
                     log.info("data = {}", data);
-                    this.dataService.saveData(data);
+//                    this.dataService.saveData(data);
 
                     //publish data mới này tới tất cả client
                     this.dataSocketHandler.publishData(new DataDto(data));

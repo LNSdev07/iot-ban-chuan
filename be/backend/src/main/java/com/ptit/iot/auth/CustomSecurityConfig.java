@@ -65,7 +65,7 @@ public class CustomSecurityConfig {
                 // Our public endpoints
                 .requestMatchers("/topic/**")
                 .permitAll()
-                .requestMatchers("/data-socket/**")
+                .requestMatchers("/data-socket/**", "/speech-to-text/**")
                 .permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/**")
                 .permitAll()

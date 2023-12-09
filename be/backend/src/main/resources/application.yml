@@ -26,3 +26,7 @@ logging:
             springframework:
                 security=DEBUG:
 
+secret_key : d9d9a74fc8b64ca8bdf2e7e2fc44238d
+
+
+
