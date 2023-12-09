@@ -18,3 +18,52 @@
     justify-content: center;
     align-items: center;
 }
+
+.start-button {
+    background-color: #7ffe9f; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .stop-button {
+    background-color: rgba(118, 146, 254, 0.69); /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .cancel-button {
+    background-color: #af7541; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 10px; /* Adjust the gap between buttons as needed */
+  }
+  
+  .info-container {
+    margin-top: 10px; /* Adjust the margin between the buttons and the info text as needed */
+  }
+  
+  .audio-container {
+    margin-top: 10px; /* Adjust the margin between the info text and the audio element as needed */
+  }
+  
+  

@@ -44,8 +44,8 @@ export class InterceptorInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         // Xử lý lỗi
-        console.log(`HTTP code: ${error.status}, Message: ${error.error.message}, Data: ${error.error.data}`);
-        console.log( error.error.error)
+        // console.log(`HTTP code: ${error.status}, Message: ${error.error.message}, Data: ${error.error.data}`);
+        // console.log( error.error.error)
         if(error.error.error === 'Unauthorized') {
           this.redirectToLogin(); // token het han
         }

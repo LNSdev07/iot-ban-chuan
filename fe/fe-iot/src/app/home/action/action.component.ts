@@ -6,6 +6,10 @@ import { EventControlReq } from './model/eventdevice';
 import { ActionService } from './service/action.service';
 import { ConfigAlertDeviceReq } from './model/configdevice';
 import { ConfigAutoAlertReq } from './model/configauto';
+// import { AudioRecordingService } from "./audio-recording.service";
+import { DomSanitizer } from "@angular/platform-browser";
+import { AudioRecordingService } from './service/audio-recording.service';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',
@@ -18,6 +22,7 @@ export class ActionComponent {
   min =0;
   max =0;
   switchValue = false;
+  chooseSpeechToText = false;
 
   disableButtonAction = false;
 
@@ -43,8 +48,25 @@ export class ActionComponent {
 
   constructor(private message: NzMessageService,
               private actionService: ActionService,
-              private reportService: ReportService) {
-                this.dataSubject = this.reportService.getDataSubject();
+              private reportService: ReportService,
+              private http: HttpClient,
+              private audioRecordingService: AudioRecordingService,
+              private sanitizer: DomSanitizer) {
+              this.dataSubject = this.reportService.getDataSubject();
+
+              this.audioRecordingService
+              .recordingFailed()
+              .subscribe(() => (this.isRecording = false));
+            this.audioRecordingService
+              .getRecordedTime()
+              .subscribe(time => (this.recordedTime = time));
+            this.audioRecordingService.getRecordedBlob().subscribe(data => {
+              this.teste = data;
+              this.blobUrl = this.sanitizer.bypassSecurityTrustUrl(
+                URL.createObjectURL(data.blob)
+              );
+            });
+          
               }
 
   showModal(name: any, min: any, max: any): void {
@@ -120,6 +142,8 @@ export class ActionComponent {
     //   this.waterStatus = data.waterStatus;
     // });
 
+  
+
   }
 
   getData(){
@@ -175,5 +199,75 @@ export class ActionComponent {
       }
     });
   }
+
+  changeSpeechToText(){
+    console.log(this.chooseSpeechToText)
+  }
+
+
+  isRecording = false;
+  recordedTime: any;
+  blobUrl: any;
+  teste: any;
+
+
+  startRecording() {
+    if (!this.isRecording) {
+      this.isRecording = true;
+      this.audioRecordingService.startRecording();
+    }
+  }
+
+  abortRecording() {
+    if (this.isRecording) {
+      this.isRecording = false;
+      this.audioRecordingService.abortRecording();
+    }
+  }
+
+  stopRecording() {
+    if (this.isRecording) {
+      this.audioRecordingService.stopRecording();
+      this.isRecording = false;
+    }
+  }
+
+  clearRecordedData() {
+    this.blobUrl = null;
+  }
+
+  ngOnDestroy(): void {
+    this.abortRecording();
+  }
+
+  download(): void {
+    // const url = window.URL.createObjectURL(this.teste.blob);
+    // const link = document.createElement("a");
+    // link.href = url;
+    // link.download = this.teste.title;
+    // link.click();
+
+    if (this.teste && this.teste.blob) {
+      const formData = new FormData();
+      formData.append('file', this.teste.blob, this.teste.title);
+      this.audioRecordingService.uploadFile(formData)
+        .subscribe(
+          (response: HttpResponse<string>) => {
+            console.log('File uploaded successfully:', response.body);
+            const mes = response.body==null?"":response.body;
+            this.message.create('success', mes);
+            // Handle success as needed
+          },
+          (error) => {
+            console.error('File upload failed:', error);
+            this.message.create('error', 'Không thể thực hiện chức năng này');
+            // Handle error as needed
+          }
+        );
+    }
+  }
+
+  
+  
 
 }

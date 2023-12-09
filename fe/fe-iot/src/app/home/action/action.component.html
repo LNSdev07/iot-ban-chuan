@@ -33,7 +33,28 @@
           </tr>
         </tbody>
       </nz-table>
-      <nz-switch  [(ngModel)]="switchValue" (ngModelChange) ="changeAuto()" nzCheckedChildren="Tắt chế độ tự động" nzUnCheckedChildren="Bật chế độ tự động"></nz-switch>
+      <nz-switch  [(ngModel)]="switchValue" (ngModelChange)="changeAuto()" nzCheckedChildren="Tắt chế độ tự động" nzUnCheckedChildren="Bật chế độ tự động"></nz-switch>
+      <br>
+      <nz-switch style="margin-top: 10px;"  [(ngModel)]="chooseSpeechToText" (ngModelChange)="changeSpeechToText()" nzCheckedChildren="Tắt điều khiển qua giọng nói" nzUnCheckedChildren="Bật điều khiển qua giọng nói"></nz-switch>
+
+      <div *ngIf="chooseSpeechToText">
+        <div style="margin-top: 10px;" class="button-container">
+          <button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+          <button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop Recording</button>
+          <button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="clearRecordedData()">Clear Recording</button>
+          <button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="download()">Remote to device</button>
+        </div>
+        
+        <div class="info-container" *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
+        
+        <div class="audio-container">
+          <audio *ngIf="!isRecording && blobUrl" controls>
+            <source [src]="blobUrl" type="audio/webm">
+          </audio>
+        </div>
+      </div>
+      
+
       <div class="card-container">
         <nz-card class="custom-card" nzTitle="Còi Cảnh Báo" [nzHoverable]="true" style="width: 270px; height: 170px; margin-left: 25%;">
           <button [disabled]="disableButtonAction"  *ngIf="buzzerStatus === 1" nz-button nzType="primary" (click)="changeStatus('BUZZER', 1)" style="width: 100px;">Bật</button>
